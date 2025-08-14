@@ -15,6 +15,9 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Ghost, Heart } from 'lucide-react';
 import Pagination from '../components/Pagination';
+import NoData from '../components/NoData';
+import { useRouter } from 'next/navigation';
+
 
 const page = () => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -24,6 +27,7 @@ const page = () => {
     const [sortOption, setSortOption] = useState('newest')
     const bookPerPage = 6;
     const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
 
     const toggleFilter = (section: string, item:string)=>{
         const updateFilter = (prev:string[])=>{
@@ -87,14 +91,14 @@ const page = () => {
         return 0;
     };
 
-    const formatDate = (dateInput: string | Date) => {
-        const date = typeof dateInput === 'string' ? new Date(dateInput) : dateInput;
-        return formatDistanceToNow(date, { addSuffix: true });
+    const formatDate = (dateString: Date) => {
+        const date = new Date(dateString)
+        return formatDistanceToNow(date, { addSuffix: true }); 
     };
 
 
     return (
-    <div className='min-h-screen bg-gray-200/30 container mx-auto px-9'>
+    <div className='min-h-screen bg-slate-100 container mx-auto px-9'>
         <div className='container mx-auto px-2 py-6'>
             <nav className='mb-5 flex items-center gap-2 text-sm text-muted-foreground'>
                 <Link href='/' className='hover:text-primary'>
@@ -243,9 +247,14 @@ const page = () => {
                             />
                         </>
                     ) : (
-                        <></>
+                        <NoData
+                            imageUrl="/images/no-book.jpg"
+                            message="No books available please try later."
+                            description="Try adjusting your filters or search criteria to find what you're looking for."
+                            onClick={() => router.push("/book-sell")}
+                            buttonText="Shell Your First Book"
+                        />
                     )}
-
                 </div>
             </div>
         </div>
