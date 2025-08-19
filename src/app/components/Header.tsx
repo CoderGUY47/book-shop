@@ -12,6 +12,7 @@ import { useRouter } from 'next/navigation'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
+import AuthPage from './AuthPage'
 
 
 const Header = () => {
@@ -79,6 +80,11 @@ const Header = () => {
         onclick: handleLoginClick
       },
     ]),
+      {
+        icon: <Lock className='h-5 w-5'/>,
+        lable: "Login /Signup",
+        onclick: handleLoginClick
+      },
       {
         icon: <User className='h-5 w-5'/>,
         lable: "Profile",
@@ -180,7 +186,7 @@ const Header = () => {
             <Input
             type='text'
             placeholder='Book Name  >  Author   >  Subject  >  Publisher'
-            className='w-full pr-10 font-black font-mono border-2 shadow-sm'
+            className='w-full pr-10 font-black !text-black font-mono border-2 shadow-sm'
             // value=''
             // onChange={() => {}}
             />
@@ -303,6 +309,7 @@ const Header = () => {
             </div>
           </Link>
       </div>
+      <AuthPage isLoginOpen={isLoginOpen} setIsLoginOpen={handleLoginClick}/>
     </header>
   )
 }

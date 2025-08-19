@@ -1,13 +1,14 @@
 'use client'
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { formatDistanceToNow } from 'date-fns';
-import { Heart, Loader2, ShoppingCart } from 'lucide-react';
+import { CheckCircle2, Contact, Contact2, ContactIcon, Heart, Loader2, MapPin, Phone, ShoppingCart, User2 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
 import { useParams, useRouter } from 'next/navigation';
+import { title } from 'process';
 import React, { useState } from 'react'
 
 const page = () => {
@@ -90,7 +91,16 @@ const page = () => {
               className="object-contain"
               />                            
               {calculateDiscount(book.price, book.finalPrice) > 0 && (
-                <span className='absolute left-0 top-2 rounded-r-lg px-2 py-1 text-xs font-medium bg-orange-600/90 text-white hover:bg-orange-700'>
+                <span className='
+                      absolute left-3 top-4             
+                      transform -rotate-12
+                      bg-gradient-to-r from-amber-500 to-orange-500
+                      shadow-2xl
+                      px-4 py-2
+                      text-xs font-bold font-mono text-white
+                      rounded-md
+                      transition-transform duration-200 hover:scale-110
+                      cursor-pointer'>
                     {calculateDiscount(book.price, book.finalPrice)}%Off                                                                
                 </span>
               )}
@@ -219,7 +229,92 @@ const page = () => {
               </div>
             </CardContent> 
         </Card>
+
+        {/* book seller details */}
+          <Card className='border-none shadow-md'>
+            <CardHeader>
+              <CardTitle className='text-lg font-bold'>Sold By</CardTitle>
+            </CardHeader>
+            <CardContent className='space-y-4'>
+              <div className="flex items-center justify-between">
+                <div className='flex items-center gap-3'>
+                  <div className="h-12 w-12 rounded-full bg-indigo-200 flex items-center justify-center">
+                    <User2 className='h-6 w-6 text-indigo-500'/>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className='font-medium'>
+                      {book.seller.name}
+                    </span>
+                    <Badge
+                      variant='secondary'
+                      className='text-green-600 p-1.5 border-dashed rounded-full border-green-600 bg-green-100'>
+                      <CheckCircle2 className='h-5 w-5 mr-1' />
+                      Verified Seller
+                    </Badge>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <MapPin className='h-4 w-4 mr-1' />
+                     <p className='text-sm'>Dhaka, Bangladesh</p>
+                  </div>
+                </div>
+              </div>
+              {book.seller.contact && (
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <ContactIcon className='h-4 w-4 mr-1 text-indigo-600' />
+                  <p className='text-sm'>{book.seller.contact}</p>
+                </div>
+              )}
+            </CardContent>
+          </Card>
         </div>
+
+        {/* Working Proccess */}
+        <section className='mt-8'>
+          <h2 className='mb-8 text-2xl font-bold text-gray-900'>How it works</h2>
+          <div className="grid gap-8 md:grid-cols-3">
+            {[
+              {
+                step: "Step 1",
+                title: "Seller posts an Ad",
+                description:
+                  "Seller posts an ad on book kart to sell their used books.",
+                image: { src: "/icons/ads.png", alt: "Post Ad" },
+              },
+              {
+                step: "Step 2",
+                title: "Buyer Pays Online",
+                description:
+                  "Buyer makes an online payment to book kart to buy those books.",
+                image: { src: "/icons/pay_online.png", alt: "Payment" },
+              },
+              {
+                step: "Step 3",
+                title: "Seller ships the books",
+                description: "Seller then ships the books to the buyer",
+                image: { src: "/icons/fast-delivery.png", alt: "Shipping" },
+              },
+            ].map((item, index) => (
+                <Card key={index} className='bg-gradient-to-br from-purple-200 to-indigo-600/50 border-none shadow-md'>
+                  <CardHeader>
+                    <Badge className='w-fit px-2 py-[0.3rem] mb-2 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full border-none'>{item.step}</Badge>
+                    <CardTitle className='text-lg font-bold'>{item.title}</CardTitle>
+                    <CardDescription className='text-sm text-gray-500'>
+                      {item.description}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className='space-y-4'>
+                      <Image 
+                      src={item.image.src} 
+                      alt={item.image.alt} 
+                      width={120} 
+                      height={120} 
+                      className='mx-auto'
+                      />
+                  </CardContent>
+                </Card>
+            ))}
+          </div>  
+        </section>
       </div>
     </div>
   )

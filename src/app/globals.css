@@ -60,7 +60,7 @@ a {
 
   --radius-md: calc(var(--radius) - 2px);
 
-  --radius-lg: var(--radius);
+  --radius-lg: var( --radius);
 
   --radius-xl: calc(var(--radius) + 4px);
 
@@ -163,7 +163,7 @@ a {
 
   --border: oklch(0.922 0 0);
 
-  --input: oklch(0.922 0 0);
+  --input: oklch(92.191% 0.0001 271.152);
 
   --ring: oklch(0.708 0 0);
 
